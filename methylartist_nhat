@@ -787,6 +787,12 @@ def sample_bam(bam_fn, motif, ref, n):
 def parse_methbam(bam_fn, reads, chrom, start, end, motifsize=2, meth_thresh=0.8, can_thresh=0.8, restrict_motif=None, restrict_ref=None, primary_only=False):
     bam = pysam.AlignmentFile(bam_fn)
 
+    if float(meth_thresh) != meth_thresh:
+        sys.exit("Provided threshold is not a number")
+
+    meth_thresh = float(meth_thresh)
+
+
     if restrict_motif:
         if len(restrict_motif) != motifsize:
             motifsize = len(restrict_motif)
