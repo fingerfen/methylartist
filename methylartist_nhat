@@ -787,11 +787,6 @@ def sample_bam(bam_fn, motif, ref, n):
 def parse_methbam(bam_fn, reads, chrom, start, end, motifsize=2, meth_thresh=0.8, can_thresh=0.8, restrict_motif=None, restrict_ref=None, primary_only=False):
     bam = pysam.AlignmentFile(bam_fn)
 
-    if float(meth_thresh) != meth_thresh:
-        sys.exit("Provided threshold is not a number")
-
-    meth_thresh = float(meth_thresh)
-
 
     if restrict_motif:
         if len(restrict_motif) != motifsize:
@@ -5578,7 +5573,7 @@ def parse_args():
     parser_locus.add_argument('--width', default=16, help='image width (inches, default=16)')
     parser_locus.add_argument('--height', default=8, help='image width (inches, default=8)')
     parser_locus.add_argument('--svg', action='store_true')
-    parser_locus.add_argument('--meth_thresh', default=0.8, help='quality of modification above which to plot, defaultly are the black closed dots')
+    parser_locus.add_argument('--meth_thresh', type=float, default=0.8, help='quality of modification above which to plot, defaultly are the black closed dots')
     parser_locus.add_argument('--can_thresh', default=0.8, help='quality of canonical bases (1-quality of modification), above which to plot. Defaulty are the colored open dots')
 
     # options for region plots
