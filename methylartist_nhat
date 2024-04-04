@@ -965,7 +965,7 @@ def get_segmeth_calls(args, bam_fn, mod_names, meth_dbs, chrom, seg_start, seg_e
     seg_reads = dd(dict)
 
     if methbam:
-        for row in parse_methbam(bam_fn, reads, chrom, seg_start, seg_end, meth_thresh=0.8, can_thresh=0.8, restrict_ref=args.ref, restrict_motif=args.motif, primary_only=args.primary_only):
+        for row in parse_methbam(bam_fn, reads, chrom, seg_start, seg_end, meth_thresh=args.meth_thresh, can_thresh=args.can_thresh, restrict_ref=args.ref, restrict_motif=args.motif, primary_only=args.primary_only):
             index, cg_chrom, cg_start, stat, methstate, modname = row
 
             if chrom != cg_chrom:
@@ -1091,7 +1091,7 @@ def get_meth_locus(args, bam, meth_dbs, mod, phase=None, methbam=False, HP_only=
     seg_reads = {}
 
     if methbam:
-        for row in parse_methbam(bam, reads, chrom, elt_start, elt_end, motifsize=args.motifsize, meth_thresh=0.8, can_thresh=0.8, restrict_motif=restrict_motif, restrict_ref=restrict_ref, primary_only=args.primary_only):
+        for row in parse_methbam(bam, reads, chrom, elt_start, elt_end, motifsize=args.motifsize, meth_thresh=args.meth_thresh, can_thresh=args.can_thresh, restrict_motif=restrict_motif, restrict_ref=restrict_ref, primary_only=args.primary_only):
             index, cg_chrom, cg_start, stat, methstate, modname = row
 
             if methstate == 0:
@@ -1177,7 +1177,7 @@ def get_meth_profile_composite(args, data, methbam, seg_chrom, seg_start, seg_en
         seg_reads = {}
 
         if methbam:
-            for row in parse_methbam(bam, reads, seg_chrom, seg_start, seg_end, motifsize=len(args.motif), meth_thresh=0.8, can_thresh=0.8, restrict_motif=args.motif, restrict_ref=args.ref, primary_only=args.primary_only):
+            for row in parse_methbam(bam, reads, seg_chrom, seg_start, seg_end, motifsize=len(args.motif), meth_thresh=args.meth_thresh, can_thresh=args.can_thresh, restrict_motif=args.motif, restrict_ref=args.ref, primary_only=args.primary_only):
                 index, cg_chrom, cg_start, stat, methstate, modname = row
 
                 if seg_chrom != cg_chrom:
@@ -1379,7 +1379,7 @@ def get_meth_calls_wg(args, bam_fn, meth_fn, chrom, seg_start, seg_end, phased, 
     seg_reads = {}
 
     if methbam:
-        for row in parse_methbam(bam_fn, set(reads), chrom, seg_start, seg_end, meth_thresh=0.8, can_thresh=0.8, restrict_ref=args.ref, restrict_motif=args.motif, motifsize=motifsize, primary_only=args.primary_only):
+        for row in parse_methbam(bam_fn, set(reads), chrom, seg_start, seg_end, meth_thresh=args.meth_thresh, can_thresh=args.can_thresh, restrict_ref=args.ref, restrict_motif=args.motif, motifsize=motifsize, primary_only=args.primary_only):
             index, cg_chrom, cg_start, stat, methstate, modname = row
 
             if mod is not None and mod != modname:
@@ -5572,6 +5572,8 @@ def parse_args():
     parser_locus.add_argument('--width', default=16, help='image width (inches, default=16)')
     parser_locus.add_argument('--height', default=8, help='image width (inches, default=8)')
     parser_locus.add_argument('--svg', action='store_true')
+    parser_locus.add_argument('--meth_thresh', default=0.8, help='quality of modification above which to plot, defaultly are the black closed dots')
+    parser_locus.add_argument('--can_thresh', default=0.8, help='quality of canonical bases (1-quality of modification), above which to plot. Defaulty are the colored open dots')
 
     # options for region plots
     parser_region.add_argument('-i', '--interval', required=True, help='chrom:start-end')
