@@ -5574,7 +5574,7 @@ def parse_args():
     parser_locus.add_argument('--height', default=8, help='image width (inches, default=8)')
     parser_locus.add_argument('--svg', action='store_true')
     parser_locus.add_argument('--meth_thresh', type=float, default=0.8, help='quality of modification above which to plot, defaultly are the black closed dots')
-    parser_locus.add_argument('--can_thresh', default=0.8, help='quality of canonical bases (1-quality of modification), above which to plot. Defaulty are the colored open dots')
+    parser_locus.add_argument('--can_thresh', type=float, default=0.8, help='quality of canonical bases (1-quality of modification), above which to plot. Defaulty are the colored open dots')
 
     # options for region plots
     parser_region.add_argument('-i', '--interval', required=True, help='chrom:start-end')
