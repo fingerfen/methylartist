@@ -3300,7 +3300,7 @@ def locus(args):
     if args.plot_coverage:
         p_ratios.append(3)
 
-    fig = plt.figure(figsize=(30,6))
+    fig = plt.figure(figsize=(10,30))
     gs = gridspec.GridSpec(len(p_ratios),1,height_ratios=p_ratios, hspace=0)
 
     img_w = 16
